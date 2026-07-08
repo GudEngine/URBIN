@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Document</title>
+</head>
+<body >
+<div class="cotainer px-3 ">
+    <div class="row">
+        <div class="col-12 bg-warning">
+            <nav class="navbar navbar-expand-lg ">
+                <a class="navbar-brand" href="#"><img src="../img/logo.png" class="img-fluid  col-3" alt=""></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <button id="toggleTheme" class="btn btn-primary btn-theme">
+                    🌙 Cambiar tema
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Inicio <span class="visually-hidden">(actual)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">¿Quiénes somos?</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Información Pública
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Puntos de reciclaje</a>
+                        <a class="dropdown-item" href="#">Horarios de Recolección</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Estadísticas e informes</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="loguearse.php">Iniciar sesión</a>
+                    </li>
+                    </ul>
+                    <form class="d-flex my-2 my-lg-0">
+                        <p class="text-black">Buscar estado de contenedor</p>
+                    <input class="form-control me-2" type="search" placeholder="N° de contenedor" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                    </form>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 p-3 mx-auto bg-danger d-flex">
+            <div class="col-lg-10 mx-auto">
+            
+                <div class="d-flex flex-column-reverse flex-lg-row align-items-center justify-content-between">
+                    
+                    <div class="col-12 col-lg-6 text-center text-lg-start p-3">
+                        <h1 class="display-5 fw-bold lh-1 mb-3">Una empresa comprpmetida a limpiar la ciudad.</h1>
+                        <p class="text-white">Una plataforma tecnológica nacida para limpiar Montevideo. En GudEngine optimizamos la
+                            logística de residuos urbanos con un enfoque claro: soluciones reales,
+                            eficientes y al alcance de cada operario. Porque un cambio medible hoy es "gud enough".</p>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
+                            <button type="button" class="btn btn-primary btn-lg px-4 me-md-2">Contactarse</button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12 col-lg-5 p-3 text-center">
+                        <img class="img-fluid rounded" src="../img/Captura de pantalla 2025-10-13 215124.png" alt="Hero Image" width="700" height="500" loading="lazy">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row heroico" > 
+        
+        <div class="col-lg-3 p-3 bg-success border border-dark text-center">
+            <img src="../img/reclamo.png" class="col-4 img-fluid" alt="">
+            <br>
+            <a class="text-white" href="#">Hacer un reclamo</a> 
+        </div> 
+        
+        <div class="col-lg-3 p-3 bg-success border border-dark nav-link text-center">
+            <img src="../img/mapa.png" class="col-4 img-fluid" alt="">
+            <br>
+            <a class="text-white" href="#">Mapa de contenedores</a>
+        </div>
+        
+        <div class="col-lg-3 p-3 bg-success border border-dark text-center">
+            <img src="../img/clasificacion.png" class="col-6 img-fluid" alt="">
+            <br>
+            <a class="text-white" href="#">Guía de clasificación</a>
+        </div>
+
+        <div class="col-lg-3 p-3 bg-success border border-dark text-center">
+            <img src="../img/historial.png" class="col-6 img-fluid" alt="">
+            <br>
+            <a class="text-white" href="#">Historial de reclamos</a>
+        </div>
+
+    </div>
+    <div class="row call" >
+        <div   class="col-lg-6 p-3 bg-secondary border border-light  ">
+            <h2>Agendá para reunirte con nosotros, sin costo</h2>
+            <img src="../img/GatoBien.png"  class="img-fluid col-3 d-block mx-auto" alt="">
+        </div>
+        <div class="col-lg-6 p-3 bg-secondary border border-light text-center" >
+            <p class="lead text-white fw-bold">Contacto</p>
+            <div class="col-6 align-items-center mx-auto w-50 ">
+                <input class="form-control form-control-lg" type="text"  placeholder="E-mail" >
+                <input class="form-control" type="text" placeholder="Nombre">
+                <input class="form-control form-control-sm" type="text" placeholder="Comentario">
+                <buttontype="button" class="btn btn-primary btn-lg px-4 me-md-2">Contactarse </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    <div class=" col-12 p-3  px-0 d-flex justify-content-between align-items-center footer">
+            <div>
+                <p class="mb-1"><strong>GudEngine</strong></p>
+                <p class="small mb-1 fst-italic">Gud enough</p>
+                <p class="small mb-0">&copy; 2026 GudEngine. Derechos reservados</p>
+            </div>
+            <div class="text-end">
+                <p class="mb-1"><strong>Sede:</strong> dirección ficticia 1488</p>
+                <p class="mb-1"><strong>Teléfono:</strong> teléfono ficticio</p>
+                <p class="mb-0"><strong>Correo:</strong> ficticio@gmail.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const toggleButton = document.getElementById("toggleTheme");
+
+    toggleButton.addEventListener("click", () => {
+
+        document.documentElement
+                .classList
+                .toggle("dark-mode");
+
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+/*:root {
+    --bg-color: #0845ecec;
+    --text-color: #212529;
+    --card-bg: #ffffff;
+    --accent-color: #0d6efd;
+}
+
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #e9ecef;
+    --card-bg: #1e1e1e;
+    --accent-color: #4dabf7;
+}
+
+body {
+    background-color: var(--bg-color);
+    transition: background-color .3s ease;
+}
+
+.form-control {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: rgba(0,0,0,0.1);
+}
+.dark-mode .form-control {
+    border-color: #444;
+}
+.form-control:focus {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
