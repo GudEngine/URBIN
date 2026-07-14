@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
-        /* Enganchamos tus variables globales */
+        /* Enganchamos variables globales */
         :root {
             --bg-color: #f8f9fa;
             --text-color: #212529;
@@ -45,7 +45,7 @@
     <nav class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container-fluid px-4">
             <span class="navbar-brand fw-bold">
-                <i class="bi bi-toggles2 me-2"></i>SiGeRU - Panel Administrativo
+                URBIN - Oficina de administrador
             </span>
             <button class="btn btn-outline-light btn-sm" id="btn-theme">
                 <i class="bi bi-moon-stars"></i> Modo Oscuro
@@ -59,39 +59,53 @@
     <div class="col-12 col-lg-4">
         <div class="card p-4 rounded shadow-sm">
             
-            <div class="mb-4">
-                <label class="form-label small fw-bold text-uppercase tracking-wider">¿Qué operación desea realizar?</label>
-                <select id="selector-operacion" class="form-select form-select-lg border-primary fw-bold" onchange="cambiarFormularios()">
-                    <option value="registro" selected>➕ Registrar Nuevo Funcionario</option>
-                    <option value="modificacion">✏️ Modificar Funcionario Existente</option>
-                    <option value="eliminacion">❌ Dar de Baja (Eliminar)</option>
-                </select>
+            <div class="row g-2 mb-3">
+                <!-- Selector de Entidad -->
+                <div class="col-12"> <!-- Cambiado a col-12 para que ocupe todo el ancho disponible de la tarjeta -->
+                    <label class="form-label small fw-bold text-primary mb-1">1. Seleccione Gestión</label>
+                    <!-- Quitamos 'form-select-lg' para usar el tamaño estándar y que no se corte el texto -->
+                    <select id="selector_entidad" class="form-select border-primary fw-bold" onchange="cambiarEntidad()">
+                        <option value="usuarios">Gestión de Personal (Usuarios)</option>
+                        <option value="contenedores">Gestión de Infraestructura (Contenedores)</option>
+                        <option value="camiones">Gestión de la flota de camiones</option>
+                    </select>
+                </div>
+
+                <!-- Selector de Operación -->
+                <div class="col-12 mt-2"> <!-- Uno abajo del otro para máxima legibilidad -->
+                    <label class="form-label small fw-bold text-primary mb-1">2. Seleccione Operación</label>
+                    <select id="selector_operacion" class="form-select border-primary fw-bold" onchange="cambiarFormularios()">
+                        <option value="registro_usuarios">Registrar Nuevo Usuario</option>
+                        <option value="modificacion_usuarios">Modificar Usuario</option>
+                        <option value="eliminacion_usuarios">Eliminar Usuario</option>
+                    </select>
+                </div>
             </div>
 
             <hr class="my-3" style="color: var(--border-color);">
 
-            <form id="form-registro">
+            <form id="form_registro_usuarios">
                 <h5 class="fw-bold mb-3 text-success">Alta de Personal</h5>
                 
                 <div class="mb-3">
                     <label class="form-label small fw-bold">Cédula de Identidad</label>
-                    <input type="text" id="reg-ci" class="form-control" maxlength="8" placeholder="ej. 12345678" required>
+                    <input type="text" id="ci" class="form-control" maxlength="8" placeholder="ej. 12345678" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label small fw-bold">Nombre Completo (NomUs)</label>
-                    <input type="text" id="reg-name" class="form-control" placeholder="ej. Juan Pérez" required>
+                    <input type="text" id="name" class="form-control" placeholder="ej. Juan Pérez" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label small fw-bold">Correo Electrónico</label>
-                    <input type="email" id="reg-email" class="form-control" placeholder="juan@municipio.com" required>
+                    <input type="email" id="email" class="form-control" placeholder="juan@municipio.com" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label small fw-bold">Teléfono de Contacto</label>
-                    <input type="text" id="reg-telefono" class="form-control" maxlength="9" placeholder="ej. 099123456">
+                    <input type="text" id="telefono" class="form-control" maxlength="8" placeholder="ej. 99123456,NO 099123456 ">
                 </div>
                 <div class="mb-4">
                     <label class="form-label small fw-bold">Rol Operativo</label>
-                    <select id="reg-rol" class="form-select" required>
+                    <select id="rol" class="form-select" required>
                         <option value="" disabled selected>Seleccione un rol...</option>
                         <option value="recolector">Cuadrilla de Recolección</option>
                         <option value="operario_vertedero">Administrador de Vertedero</option>
@@ -100,29 +114,29 @@
                 <button type="submit" class="btn btn-success w-100 fw-bold">Confirmar Registro</button>
             </form>
 
-            <form id="form-modificacion" class="d-none">
+            <form id="form_modificacion_usuarios" class="d-none">
                 <h5 class="fw-bold mb-3 text-warning">Modificar Datos</h5>
                 <p class="text-muted small">La CI no se puede cambiar por ser la clave primaria.</p>
                 
                 <div class="mb-3">
                     <label class="form-label small fw-bold">Cédula del usuario a modificar</label>
-                    <input type="text" id="mod-ci" class="form-control border-warning" maxlength="8" placeholder="Ingrese CI existente" required>
+                    <input type="text" id="mod_ci" class="form-control border-warning" maxlength="8" placeholder="Ingrese CI existente" required>
                 </div>
                 <div class="mb-3">
                     <label class="form-label small fw-bold">Nuevo Nombre</label>
-                    <input type="text" id="mod-name" class="form-control" placeholder="Nombre actualizado">
+                    <input type="text" id="mod_name" class="form-control" placeholder="Nombre actualizado">
                 </div>
                 <div class="mb-3">
                     <label class="form-label small fw-bold">Nuevo Email</label>
-                    <input type="email" id="mod-email" class="form-control" placeholder="Email actualizado">
+                    <input type="email" id="mod_email" class="form-control" placeholder="Email actualizado">
                 </div>
                 <div class="mb-3">
                     <label class="form-label small fw-bold">Nuevo Teléfono</label>
-                    <input type="text" id="mod-telefono" class="form-control" maxlength="9" placeholder="Teléfono actualizado">
+                    <input type="text" id="mod_telefono" class="form-control" maxlength="8" placeholder="Teléfono actualizado">
                 </div>
                 <div class="mb-4">
                     <label class="form-label small fw-bold">Nuevo Rol</label>
-                    <select id="mod-rol" class="form-select">
+                    <select id="mod_rol" class="form-select">
                         <option value="recolector">Cuadrilla de Recolección</option>
                         <option value="operario_vertedero">Administrador de Vertedero</option>
                     </select>
@@ -130,45 +144,123 @@
                 <button type="submit" class="btn btn-warning w-100 fw-bold text-dark">Guardar Cambios</button>
             </form>
 
-            <form id="form-eliminacion" class="d-none">
+            <form id="form_eliminacion_usuarios" class="d-none">
                 <h5 class="fw-bold mb-3 text-danger">Baja del Sistema</h5>
                 
                 <div class="mb-4">
                     <label class="form-label small fw-bold">Cédula de Identidad del Funcionario</label>
-                    <input type="text" id="del-ci" class="form-control border-danger form-control-lg" maxlength="8" placeholder="ej. 12345678" required>
-                    <div class="form-text text-danger">⚠️ Atención: Esta acción eliminará permanentemente al usuario de la base de datos municipal.</div>
+                    <input type="text" id="cedula_eliminar" class="form-control border-danger form-control-lg" maxlength="8" placeholder="ej. 12345678" required>
+                   <div class="form-text text-danger">⚠️ Atención: Esta acción eliminará permanentemente al usuario de la base de datos municipal.</div>
                 </div>
                 
                 <button type="submit" class="btn btn-danger w-100 fw-bold">Eliminar Definitivamente</button>
             </form>
 
+            <!-- FORMULARIO: ALTA DE CONTENEDORES -->
+            <form id="form_registro_contenedores" class="d-none">
+                <h5 class="fw-bold mb-3 text-success">Alta de Contenedor de Residuos</h5>
+                <p class="text-muted small">Registre la ubicación y el estado inicial de una nueva unidad en la vía pública.</p>
+                
+                <!-- ID del Contenedor -->
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Número de Contenedor (ID)</label>
+                    <input type="text" id="cont_id" class="form-control border-success" placeholder="Ej: 1024" required>
+                    <div class="form-text small">Debe ser un identificador numérico único.</div>
+                </div>
+
+                <!-- Calle / Ubicación -->
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Calle / Ubicación</label>
+                    <!-- Limitado a 29 caracteres exactos como tu VARCHAR(29) -->
+                    <input type="text" id="cont_calle" class="form-control" maxlength="29" placeholder="Ej: Av. 18 de Julio" required>
+                </div>
+
+                <!-- Estado Inicial -->
+                <div class="mb-4">
+                    <label class="form-label small fw-bold">Estado del Contenedor</label>
+                    <select id="cont_estado" class="form-select">
+                        <option value="funcional">Funcional</option>
+                        <option value="roto">Roto</option>
+                        <option value="desbordado">Desbordado</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 fw-bold text-white">Registrar Contenedor</button>
+            </form>
+            <!--Alta de camioncitos-->
+            <form id="form_registro_camiones" class="d-none">
+                <h3 class="text-secondary mb-3">Registrar Nuevo Camión</h3>
+
+                <!-- Matrícula (Uruguaya, empieza con S) -->
+                <div class="mb-3">
+                    <label for="cam_matricula" class="form-label fw-bold">Matrícula (Patente)</label>
+                    <input type="text" class="form-control border-secondary" id="cam_matricula" 
+                        placeholder="SXX 1234" maxlength="8" required>
+                    <div class="form-text">Debe empezar con 'S' (Montevideo) seguido de 2 letras y 4 números (ej: SAB 1234).</div>
+                </div>
+
+                <!-- Tipo de Camión (Selector) -->
+                <div class="mb-3">
+                    <label for="cam_tipo" class="form-label fw-bold">Tipo de Camión</label>
+                    <select class="form-select border-secondary" id="cam_tipo" required>
+                        <option value="" disabled selected>Seleccione el tipo</option>
+                        <option value="ruta">Camión de ruta</option>
+                        <option value="reciclaje">Camión de reciclaje</option>
+                    </select>
+                </div>
+
+                <!-- Modelo (Selector) -->
+                <div class="mb-3">
+                    <label for="cam_modelo" class="form-label fw-bold">Modelo / Marca</label>
+                    <select class="form-select border-secondary" id="cam_modelo" required>
+                        <option value="" disabled selected>Seleccione el modelo</option>
+                        <option value="Mercedes-Benz">Mercedes-Benz</option>
+                        <option value="Caterpillar">Caterpillar</option>
+                    </select>
+                </div>
+
+                <!-- Estado Funcional (Selector) -->
+                <div class="mb-3">
+                    <label for="cam_estado" class="form-label fw-bold">Estado del Vehículo</label>
+                    <select class="form-select border-secondary" id="cam_estado" required>
+                        <option value="" disabled selected>Seleccione el estado</option>
+                        <option value="funcional">Funcional</option>
+                        <option value="roto">Necesita reparación</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-success w-100 fw-bold">
+                    <i class="bi bi-truck"></i> Registrar Camión
+                </button>
+            </form>
         </div>
     </div>
-
             <div class="col-12 col-lg-8">
-                <div class="table-container p-4 rounded shadow-sm">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="fw-bold mb-0">Personal Registrado</h4>
-                        <button class="btn btn-sm btn-outline-secondary" id="btn-actualizar">
-                            <i class="bi bi-arrow-clockwise"></i> Actualizar
-                        </button>
+                <div class="card p-4 mb-3">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <!-- Selector independiente para las tablas -->
+                        <select id="selector_tabla" class="form-select border-secondary fw-bold w-auto" onchange="cambiarTablaVisualizada()">
+                            <option value="tabla_usuarios" selected>Ver Tabla: Personal / Usuarios</option>
+                            <option value="tabla_contenedores">Ver Tabla: Infraestructura (Contenedores)</option>
+                        </select>
                     </div>
+
+                    <!-- Tabla con los usuarios -->
+                    <div id="contenedor_tabla_usuarios">
+                        <div id="tabla_usuarios" class="table-responsive">
+                        <!-- me gusta creer que acá se inyectará magicamente la tabla-->
+                        </div>
+                    </div>
+
+                    <!-- Tabla  con mis bellos contenedores -->
+                    <div id="contenedor_tabla_contenedores" class="d-none"> 
+                        <div id="tabla_contenedores" class="table-responsive">
+                            <!-- Arranca oculta por defecto -->
+                        </div>
+                    </div>
+
+                    <!-- Tabla con camiones-->
                     
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light text-uppercase small">
-                                <tr>
-                                    <th>CI</th>
-                                    <th>Usuario</th>
-                                    <th>Email</th>
-                                    <th>Rol</th>
-                                    <th>Telefono</th>
-                                </tr>
-                            </thead>
-                            <tbody id="tabla-usuarios">
-                                </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
 
@@ -177,109 +269,118 @@
 
 <!-- cambio de formularios-->
 <script>
+// Esta función se ejecuta cuando cambias entre Usuarios y Contenedores
+function cambiarEntidad() {
+    const entidad = document.getElementById('selector_entidad').value;
+    const selectorOperacion = document.getElementById('selector_operacion');
+    
+    // Limpiamos las opciones anteriores del segundo selector
+    selectorOperacion.innerHTML = '';
+    
+    if (entidad === 'usuarios') {
+        selectorOperacion.innerHTML = `
+            <option value="registro_usuarios">Registrar Nuevo Usuario</option>
+            <option value="modificacion_usuarios">Modificar Usuario</option>
+            <option value="eliminacion_usuarios">Eliminar Usuario</option>
+        `;
+    } else if (entidad === 'contenedores') {
+        selectorOperacion.innerHTML = `
+            <option value="registro_contenedores">Alta de Contenedor</option>
+            <!-- me encanta tener un ABM entero, pero no voy a programar esto ahora que sino no llego para la 1era entrega -->
+            <option value="modificacion_contenedores" disabled>Modificar Contenedor (2da Entrega)</option>
+            <option value="eliminacion_contenedores" disabled>Eliminar Contenedor (2da Entrega)</option>
+        `;
+    } else if (entidad === 'camiones') {
+        selectorOperacion.innerHTML = `
+            <option value="registro_camiones">Alta de Camión</option>
+            <option value="modificacion_camiones" disabled>Modificar Camión (2da Entrega)</option>
+            <option value="eliminacion_camiones" disabled>Eliminar Camión (2da entrega)</option>
+        `;
+    }
+    
+    // Forzamos la actualización de la vista de los formularios y tablas
+    cambiarFormularios();
+}
+
+// Esta función oculta y muestra los formularios y las tablas correspondientes
 function cambiarFormularios() {
-    // 1. Averiguamos qué opción seleccionó el administrativo
-    const operacionSeleccionada = document.getElementById('selector-operacion').value;
-    
-    // 2. Mapeamos los IDs de tus tres formularios en una lista
-    const formularios = ['form-registro', 'form-modificacion', 'form-eliminacion'];
-    
-    // 3. Recorremos la lista: si coincide con la selección, le quitamos 'd-none'; si no, se lo ponemos
+    const operacionSeleccionada = document.getElementById('selector_operacion').value;
+    const entidadSeleccionada = document.getElementById('selector_entidad').value;
+
+    // 1. Mapeamos TODOS los formularios existentes en la página
+    const formularios = [
+        'form_registro_usuarios', 
+        'form_modificacion_usuarios', 
+        'form_eliminacion_usuarios',
+        'form_registro_contenedores',
+        'form_registro_camiones'
+    ];
+
+    // Recorremos y mostramos solo el seleccionado
     formularios.forEach(idForm => {
         const formulario = document.getElementById(idForm);
-        
-        if (idForm === `form-${operacionSeleccionada}`) {
-            formulario.classList.remove('d-none');
-        } else {
-            formulario.classList.add('d-none');
+        if (formulario) {
+            if (idForm === `form_${operacionSeleccionada}`) {
+                formulario.classList.remove('d-none');
+            } else {
+                formulario.classList.add('d-none');
+            }
         }
     });
+
+    // 2. Control de Tablas (Para que veas la tabla correspondiente)
+    
 }
+    function cambiarTablaVisualizada() {
+        const tablaSeleccionada = document.getElementById('selector_tabla').value;
+        const divUsuarios = document.getElementById('contenedor_tabla_usuarios');
+        const divContenedores = document.getElementById('contenedor_tabla_contenedores');
+
+        if (divUsuarios && divContenedores) {
+            if (tablaSeleccionada === 'tabla_usuarios') {
+                divUsuarios.classList.remove('d-none');
+                divContenedores.classList.add('d-none');
+                // Aprovechamos a refrescar los datos de usuarios al cambiar
+                cargarUsuarios();
+            } else {
+                divUsuarios.classList.add('d-none');
+                divContenedores.classList.remove('d-none');
+                // Refrescamos los datos de contenedores al cambiar
+                cargarContenedores();
+            }
+        }
+    }
     
 </script>
+
+        <!--1. CARGAR Y LISTAR USUARIOS (GET)-->
+
 <script>
-        const API_URL = '../controlador/api.php'; // Ajustá la ruta real a tu archivo API
-//me gustan bastante tus ideas, más allá de un par de cosas que no comprendo, pero si mi administrador es muuuy perezoso dudo mucho que guste de que su única forma de eliminar un usuario sea mediante la lista, aparte
-        // 1. CARGAR Y LISTAR USUARIOS (GET)
+        const API_URL = '../controlador/api_usuarios.php';
         function cargarUsuarios() {
             fetch(`${API_URL}/usuarios`)
-                .then(response => response.json())
-                .then(data => {
-                    const tbody = document.getElementById('tabla-usuarios');
-                    tbody.innerHTML = ''; // Limpiamos la tabla
-
-                    if(data.length === 0) {
-                        tbody.innerHTML = `<tr><td colspan="4" class="text-center text-muted py-3">No hay personal operativo registrado.</td></tr>`;
-                        return;
-                    }
-                    
-                 /*   data.forEach(user => {
-                        // Formateamos los roles estéticamente
-                        let rolBadge = user.rol === 'recolector' 
-                            ? '<span class="badge bg-success-subtle text-success p-2">Cuadrilla</span>' 
-                            : '<span class="badge bg-warning-subtle text-warning p-2">Vertedero</span>';
-
-                        tbody.innerHTML += `
-                            <tr>
-                                <td class="fw-bold">${user.NomUs}</td>
-                                <td>${user.email}</td>
-                                <td>${rolBadge}</td>
-                                <td class="text-center">
-                                    <button class="btn btn-sm btn-outline-danger" onclick="eliminarUsuario('${user.email}')">
-                                        <i class="bi bi-trash3-fill"></i>
-                                        <span class="d-none d-md-inline"> Dar de Baja</span>
-                                    </button>
-                                </td>
-                            </tr>
-                        `;
-                    });*/
-                })
-                .catch(err => console.error("Error al cargar usuarios:", err));
-        }
-        // 2. CREAR NUEVO USUARIO (POST)
-        document.getElementById('form_login').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Armamos el JSON con los datos esperados
-            const nuevoUsuario = {
-                NomUs: document.getElementById('nomUs').value,
-                email: document.getElementById('email').value,
-                rol: document.getElementById('rol').value
-            };
-
-            fetch(`${API_URL}/usuarios`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(nuevoUsuario)
-            })
             .then(response => response.json())
-            .then(result => {
-                alert("Funcionario registrado exitosamente.");
-                document.getElementById('form_login').reset();
-                cargarUsuarios(); // Recargamos la tabla automáticamente
-            })
-            .catch(err => console.error("Error al registrar:", err));
-        });
+            .then(data => {
+                const tbody = document.getElementById('tabla_usuarios');
+                
+                // Si el elemento no existe en el HTML, salimos en paz sin romper el script
+                if (!tbody) return; 
 
-        // 3. ELIMINAR USUARIO POR EMAIL (DELETE)
-        function eliminarUsuario(emailUsuario) {
-            if (!confirm(`¿Estás seguro de dar de baja al usuario con email ${emailUsuario}?`)) return;
+                tbody.innerHTML = ''; // Limpiamos
 
-            fetch(`${API_URL}/usuarios`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                // Tu backend actual lee explícitamente "usr_email" en el bloque DELETE
-                body: JSON.stringify({ usr_email: emailUsuario })
+                // Si no hay datos, mostramos el mensaje directo en el div
+                if (!data || data.length === 0) {
+                    tbody.innerHTML = `<p class="text-center text-muted py-3">No hay personal operativo registrado.</p>`;
+                    return;
+                }
+                
+                // Si hay datos, llamamos a la función de dibujo
+                loadUsuarios(data); 
             })
-            .then(response => {
-                alert("Funcionario dado de baja del sistema.");
-                cargarUsuarios();
-            })
-            .catch(err => console.error("Error al borrar:", err));
+            .catch(err => console.error("Error al cargar usuarios:", err));
         }
-
         // 4. LÓGICA AUXILIAR: MODO OSCURO & BOTONES
-        document.getElementById('btn-actualizar').addEventListener('click', cargarUsuarios);
+        document.getElementById('btn-actualizar')?.addEventListener('click', cargarUsuarios);
         
         document.getElementById('btn-theme').addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
@@ -292,12 +393,248 @@ function cambiarFormularios() {
         // Carga inicial al abrir la página
         document.addEventListener("DOMContentLoaded", cargarUsuarios);
     </script>
+    <!--1 Cargar y Listar conteiners-->
+    <script>
+        function cargarContenedores() {
+            fetch(`${API_CONTENEDORES}/contenedores`)
+            .then(response => response.json())
+            .then(data => {
+                const tbody = document.getElementById('tabla_contenedores');
+                
+                // Escudo protector: si no existe, no rompemos nada
+                if (!tbody) return; 
+
+                tbody.innerHTML = ''; // Limpiamos
+
+                // Validamos si no hay datos o viene el mensaje de bypass del backend
+                if (!data || data.length === 0 || data.mensaje) {
+                    tbody.innerHTML = `<p class="text-center text-muted py-3">No hay infraestructura de contenedores registrada.</p>`;
+                    return;
+                }
+                
+                loadContenedores(data); 
+            })
+            .catch(err => console.error("Error al cargar contenedores:", err));
+}
+    </script>
+
+   <!-- 2 CREar contenedores-->
+    <script>
+        const API_CONTENEDORES = '../controlador/api_contenedores.php'; 
+        document.getElementById('form_registro_contenedores').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Armamiento del paquete JSON con los datos del contenedor ingresados
+            const nuevoContenedor = {
+                cont_id: document.getElementById('cont_id').value,
+                cont_calle: document.getElementById('cont_calle').value,
+                cont_estado: document.getElementById('cont_estado').value
+            };
+
+            fetch(`${API_CONTENEDORES}/contenedores`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(nuevoContenedor)
+            })
+            .then(response => {
+                return response.json();
+            })           
+            .then(respuesta => {
+                alert(respuesta.mensaje); 
+
+                // Si el mensaje del backend confirma el éxito con tu frase clave...
+                if (respuesta.mensaje.includes("con éxito")) { 
+                    document.getElementById('form_registro_contenedores').reset();
+        
+                    cargarContenedores(); 
+                }
+            })
+            .catch(err => {
+                console.error("Error al registrar el contenedor:", err);
+                alert("Hubo un fallo crítico al conectar con la API de infraestructura.");
+            });
+        });
+    </script>
+   <!-- 2. CREAr usuario -->
+    <script>
+
+        document.getElementById('form_registro_usuarios').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // armamiento del paquete JSON con los datos ingresados
+            const nuevoUsuario = {
+                usr_ci: document.getElementById('ci').value,
+                usr_name: document.getElementById('name').value,
+                usr_email: document.getElementById('email').value,
+                usr_rol: document.getElementById('rol').value,
+                usr_telefono: document.getElementById('telefono').value
+
+            };
+
+            fetch(`${API_URL}/usuarios`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(nuevoUsuario)
+            })//tengo una piterson teorías
+            .then(response => {
+                return response.json();
+            })           
+            .then(respuesta => {
+                alert(respuesta.mensaje); 
+
+                // Si el mensaje del backend confirma el éxito, actualiza la lista y limpia el form
+                if (respuesta.mensaje.includes("con éxito")) { 
+                    document.getElementById('form_registro_usuarios').reset();
+                    cargarUsuarios();
+                }
+            })
+            .catch(err => {
+                console.error("Error al registrar:", err);
+                alert("Hubo un fallo crítico al conectar con la API.");
+            });
+        });
+    </script>
+
+    <!--2.5 modify user-->
+    <script>
+        document.getElementById('form_modificacion_usuarios').addEventListener('submit', function(e) {
+           e.preventDefault();
+            const ci = document.getElementById('mod_ci').value.trim();
+            const name = document.getElementById('mod_name').value.trim();
+            const email = document.getElementById('mod_email').value.trim();
+            const rol = document.getElementById('mod_rol').value.trim();
+            const telefono = document.getElementById('mod_telefono').value.trim();
+
+            if (ci === "" || name === "" || email === "" || rol === "" || telefono === "") {
+                alert("⚠️ Error: Todos los campos son obligatorios para modificar el usuario.");
+                return; 
+            }
+
+            // 3. Armamos el JSON real con todas las propiedades que espera el backend
+            const nuevoUsuario = {
+                usr_ci: ci,
+                usr_name: name,
+                usr_email: email,
+                usr_rol: rol,
+                usr_telefono: telefono
+            };
+
+            fetch(`${API_URL}/modificar`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(nuevoUsuario)
+            })
+            .then(response => {
+                return response.json();
+            })           
+            .then(respuesta => {
+                alert(respuesta.mensaje); 
+
+                // Si el mensaje del backend confirma el éxito, actualiza la lista y limpia el form
+                if (respuesta.mensaje.includes("con éxito")) { 
+                    document.getElementById('form_modificacion_usuarios').reset();
+                    cargarUsuarios();
+                }
+            })
+            .catch(err => {
+                console.error("Error al modificar:", err);
+                alert("Hubo un fallo crítico al conectar con la API.");
+            });
+        });
+ 
+    </script>
+    <!--3. eliminar--> 
+    <script>
+        document.getElementById('form_eliminacion_usuarios').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const cedula = e.target.cedula_eliminar.value;
+            if (cedula == ""){
+                alert("Por favor, ingrese una cédula");
+                return;
+            }
+            fetch(`${API_URL}/usuarios`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usr_ci: cedula })
+            })
+            .then(response => {
+                return response.json();
+            })           
+            .then(respuesta => {
+                alert(respuesta.mensaje); 
+                //medio rústico pero funciona
+                if (respuesta.mensaje.includes("con éxito")) { 
+                    document.getElementById('form_eliminacion_usuarios').reset();
+                    cargarUsuarios();
+                }
+            })
+            .catch(err => {
+                console.error("Error al borrar:", err);
+                alert("Hubo un fallo crítico al conectar con la API.");
+            });
+        })
+    </script>
+  
+    <!-- 5 Cargar la tabla de contendores-->
+     <script>
+        function loadContenedores(data) {
+            let table = document.createElement("table");
+            table.className = "table table-hover align-middle";
+
+            // Encabezados específicos para la infraestructura
+            let headers = ["ID", "Calle / Ubicación", "Estado"];
+            let headerRow = table.insertRow();
+            headerRow.className = "table-light text-uppercase small font-weight-bold";
+
+            headers.forEach(h => {
+                let th = document.createElement("th");
+                th.innerHTML = h;
+                headerRow.appendChild(th);
+            });
+
+            // Mapeo y renderizado de los datos de la base de datos
+            data.forEach(c => {
+                let row = table.insertRow();
+                
+                // Celdas básicas
+                row.insertCell().innerHTML = c.cont_id;
+                row.insertCell().innerHTML = c.cont_calle;
+                
+                // Celda del estado con un badge de color dinámico
+                let estadoCell = row.insertCell();
+                let badgeClass = "bg-secondary"; // Por defecto
+                
+                if (c.cont_estado === "funcional") {
+                    badgeClass = "bg-success";   // Verde
+                } else if (c.cont_estado === "desbordado") {
+                    badgeClass = "bg-warning text-dark"; // Amarillo / Naranja
+                } else if (c.cont_estado === "roto") {
+                    badgeClass = "bg-danger";    // Rojo
+                }
+                
+                estadoCell.innerHTML = `<span class="badge ${badgeClass} text-uppercase">${c.cont_estado}</span>`;
+            });
+
+            // Inyección en el div correspondiente de tu vista
+            let dvTable = document.getElementById("tabla_contenedores");
+            if (dvTable) {
+                dvTable.innerHTML = "";
+                dvTable.appendChild(table);
+            }
+        }
+     </script>
+    <!--5. Cargar la tabla de usuarios-->
      <script>
     function loadUsuarios(data) {
         let table = document.createElement("table");
-        table.border = "1";
-        let headers = ["ID", "Nombre", "Email", "Imágen"];
+        table.className = "table table-hover align-middle";
+
+        let headers = ["CI", "Nombre", "Email", "Rol", "Teléfono"];
         let headerRow = table.insertRow();
+
+        headerRow.className = "table-light text-uppercase small font-weight-bold";
+
         headers.forEach(h => {
             let th = document.createElement("th");
             th.innerHTML = h;
@@ -305,12 +642,13 @@ function cambiarFormularios() {
         });
         data.forEach(u => {
             let row = table.insertRow();
-            row.insertCell().innerHTML = u.id;
+            row.insertCell().innerHTML = u.usr_ci;
             row.insertCell().innerHTML = u.usr_name;
             row.insertCell().innerHTML = u.usr_email;
-            row.insertCell().innerHTML = `<img src='../API/uploads/${u.imagen}' alt='Imagen de usuario' style='width:100px;height:auto;'>`;
+            row.insertCell().innerHTML = u.usr_rol;
+            row.insertCell().innerHTML = u.usr_telefono;
         });
-        let dvTable = document.getElementById("testBody");
+        let dvTable = document.getElementById("tabla_usuarios");
         dvTable.innerHTML = "";
         dvTable.appendChild(table);
     }
