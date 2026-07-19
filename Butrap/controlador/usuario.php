@@ -78,7 +78,7 @@ class Usuario
 	}
 	// Agregar un nuevo usuario (método POST, endopoint: /usuarios)
 	public function addUsuario($data){
-    // 1. Verificación básica de existencia de llaves
+    // 1. Verificación básica de existencia
 		if (empty($data['usr_ci']) || trim($data['usr_ci']) === "" || empty($data['usr_name']) || trim($data['usr_name']) === "" ||	empty($data['usr_email']) || trim($data['usr_email']) === "" ||	empty($data['usr_rol']) || trim($data['usr_rol']) === "" ||	empty($data['usr_telefono']) || trim($data['usr_telefono']) === "")	{
 			http_response_code(400);
 			echo json_encode(["mensaje" => "🙅 Error: Todos los campos son obligatorios y no pueden estar vacíos."]);

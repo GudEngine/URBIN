@@ -12,8 +12,9 @@ require_once 'usuario.php';
 $usuarioObj = new Usuario($conn);
 // Obtiene el método de la solicitud HTTP
 $method = $_SERVER['REQUEST_METHOD'];
-// Obtiene el endpoint de la solicitud
-$endpoint = $_SERVER['PATH_INFO'];
+// Obtiene el endpoint de la solicitud y revisa que efectivamente haya un endpoint, caso contrario
+//lo fija a vacío
+$endpoint = $_SERVER['PATH_INFO'] ?? '';
 // Establece el tipo de contenido de la respuesta (json)
 header('Content-Type: application/json');
 

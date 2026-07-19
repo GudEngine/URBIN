@@ -13,8 +13,7 @@ $contenedorObj = new Contenedor($conn);
 
 // Obtiene el método de la solicitud HTTP y el endpoint
 $method = $_SERVER['REQUEST_METHOD'];
-$endpoint = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
-
+$endpoint = $_SERVER['PATH_INFO'] ?? '';
 // Establece el tipo de contenido de la respuesta (json)
 header('Content-Type: application/json');
 
