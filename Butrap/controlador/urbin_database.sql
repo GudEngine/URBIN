@@ -21,18 +21,19 @@ primary key(cont_id),
 check (cont_estado='funcional' or cont_estado='roto' or cont_estado='desbordado') 
 );
 
-drop table contenedor;
+/*drop table contenedor;*/
 create table camion(
 cam_matricula char(7) primary key,
 cam_tipo varchar(10),
 cam_modelo varchar(13),
-cam_estado varchar(9),/* eventualmente hace un alter table para añdir el check*/
+cam_estado varchar(9),
 check (cam_estado='funcional' || cam_estado='roto'));
 drop table camion;
 insert into camion values('SAD0003', 'ruta', 'caterpillar', 'funcional');
 
 create table centro_acopio(
 id_acopio int primary key,
+tipo_residuo varchar(15),
 calle_acopio varchar(15),
 puerta_acopio int,
 capacidad int,
@@ -51,9 +52,21 @@ ruta_id int,
 ruta_fecha date,
 cont_id int,
 vaciado boolean,
-volumen_cargado int,
+volumen_cargado int,/*desde bd*/
+volumen_descarga int,
+id_acopio int,
 primary key (ruta_id, ruta_fecha, cont_id),
+constraint fecha_contenedor unique (ruta_fecha, cont_id),
 constraint foreign key (ruta_id, ruta_fecha) references ruta(ruta_id, ruta_fecha),
-constraint foreign key(cont_id) references contenedor(cont_id));
-drop table ruta
+constraint foreign key(cont_id) references contenedor(cont_id),
+constraint foreign key(id_acopio) references centro_acopio(id_acopio));
+
+create table vertedero(
+nom_vertedero varchar(15) primary key,
+calle_vertedero varchar(15),
+puerta_acopio int,
+capacidad_acopio int,
+volumen_llenado_acopio decimal(3, 2) default 0,
+check (volumen_llenado_acopio<=1));
+
         
