@@ -26,7 +26,7 @@ switch ($method) {
             echo json_encode($contenedores);
             exit;
         } elseif (preg_match('/^\/contenedores\/(\d+)$/', $endpoint, $matches)) {
-            // Obtiene un contenedor específico por ID pasándole el número capturado en la URL
+            // Obtiene un contenedor específico por ID pasándole el número qie manda la URL
             $contenedorId = $matches[1];
             $contenedor = $contenedorObj->getContenedorById($contenedorId);
             
@@ -41,7 +41,7 @@ switch ($method) {
         break;
     case 'POST':
         if ($endpoint === '/contenedores') {
-            // Recibe los datos crudos en formato JSON desde el frontend
+            // Recibe los datos en formato JSON desde el frontend
             $data = json_decode(file_get_contents('php://input'), true);
             
             // Llama directamente a la función. Ella procesa, valida, 

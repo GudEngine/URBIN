@@ -43,7 +43,7 @@ switch ($method) {
 
     case 'POST':
         if ($endpoint === '/camiones') {
-            // Recibe los datos crudos en formato JSON desde el formulario del frontend
+            // Recibe los datos  en formato JSON desde el formulario del frontend
             $data = json_decode(file_get_contents('php://input'), true);
             
             // Llama a la función de la clase, que valida y guarda

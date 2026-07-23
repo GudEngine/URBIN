@@ -37,7 +37,7 @@ class Camion
 
         $matricula = mysqli_real_escape_string($this->conn, $matricula);
         
-        // Al ser un CHAR/VARCHAR, en la query va con comillas simples
+        // como es un CHAR/VARCHAR, en la query va con comillas simples
         $query = "SELECT * FROM camion WHERE cam_matricula = '$matricula'";
         $result = mysqli_query($this->conn, $query);
         $camion = mysqli_fetch_assoc($result);

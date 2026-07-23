@@ -36,7 +36,7 @@ class Contenedor
 
         $id = mysqli_real_escape_string($this->conn, $id);
         
-        // Al ser un INT, en la query puede ir sin comillas, igual que hiciste con la cédula
+        // Al ser un INT, en la query puede ir sin comillas, igual que la cédula
         $query = "SELECT * FROM contenedor WHERE cont_id = $id";
         $result = mysqli_query($this->conn, $query);
         $contenedor = mysqli_fetch_assoc($result);

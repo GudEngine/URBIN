@@ -11,7 +11,7 @@ class Ruta
         $this->conn = $conn;
     }
 
-    //traer todas las rutas de lahistoria, algún día si lo veo preciso cambiaré esto por rutas de
+    //traer todas las rutas de lahistoria, algún día si lo veo preciso, cambiaré esto por rutas de
     //la semana o algo así
     public function getAllRutas(){
         // Traemos los datos cruzando la cabecera (ruta) con el detalle (ruta_contenedor)
@@ -88,7 +88,7 @@ class Ruta
             echo json_encode(["mensaje" => "⚠️ Error: El formato de la fecha proporcionada no es válido."]);
             exit;
         }
-
+        //a mi también me gustaría haber planificado mi pasado 
         date_default_timezone_set('America/Montevideo');
         $hoy = date('Y-m-d');
         if (strtotime($ruta_fecha) < strtotime($hoy)) {
